@@ -1,8 +1,11 @@
 import pygame
 from source.front import HelloMenu
+from source.front import MainWindow
 
 pygame.init()
 pygame.display.set_caption('TowerDefence')
 
-print(HelloMenu.HelloMenu().start())
-pygame.quit()
+if HelloMenu.HelloMenu().start() is not None:
+    MainWindow.MainWindow().start()
+else:
+    pygame.quit()

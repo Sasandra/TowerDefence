@@ -10,7 +10,6 @@ class HelloMenu:
         self.menu_state = True
 
         self.set_layout()
-        pygame.display.flip()
 
     def set_layout(self):
         menu_background = pygame.image.load('source\\images\\hello_menu_background.jpg')
@@ -47,4 +46,4 @@ class HelloMenu:
                         elif self.exit_button.button.collidepoint(pygame.mouse.get_pos()):
                             self.exit_button.on_click()
                             self.menu_state = False
-                            return 'koniec'
+                            return None
