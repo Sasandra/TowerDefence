@@ -1,9 +1,17 @@
+import pygame
+
+
 class Monster:
-    def __init__(self, speed_, health_, prize_, color_):
+    def __init__(self, speed_, health_, prize_, image_name, x_, y_):
         self.speed = speed_
         self.health = health_
         self.prize = prize_
-        self.color = color_
+        self.image_name = image_name
+        self.image = pygame.image.load('source\\images\\' + image_name)
+        self.x = x_
+        self.y = y_
+        self.direction = "down"
+        self.prev_direction = 'down'
 
     def decrease_health(self, amount):
         self.health -= amount

@@ -1,20 +1,37 @@
 import pygame
-import ctypes
-from ..back import Button
+from itertools import cycle
+from ..back import Button, MonsterB, MonsterG, MonsterR, Game, Wave
+from ..front import HelloMenu
 
 
 class MainWindow:
     def __init__(self):
+        monsters_list = [MonsterB.MonsterBlue, MonsterG.MonsterGreen, MonsterR.MonsterRed]
+        self.monster_cycle = cycle(monsters_list)
+
         self.screen = pygame.display.set_mode((1200, 600))
         self.menu_state = True
+        self.pause_pressed = False
+        self.game = Game.Game()
+        self.wave = Wave.Wave(next(self.monster_cycle), self.game, self.screen)
 
         self.play_button = Button.Button('play', 'play.png', (1110, 520, 50, 46), None, self.screen)
 
         self.set_window_layout()
+        self.set_background()
+
+    def create_wave_if_neccesary(self):
+        if self.wave.check_if_wave_end():
+            self.wave = Wave.Wave(next(self.monster_cycle), self.game, self.screen)
+            self.game.waves += 1
+            self.update_texts()
+
+    def set_background(self):
+        main_background = pygame.image.load('source\\images\\grass1.png')
+        self.screen.blit(main_background, (0, 0))
 
     def set_window_layout(self):
-        main_background = pygame.image.load('source\\images\\grass.png')
-        self.screen.blit(main_background, (0, 0))
+        self.set_background()
 
         side_menu = pygame.image.load('source\\images\\wood1.jpg')
         self.screen.blit(side_menu, (900, 0))
@@ -50,21 +67,34 @@ class MainWindow:
 
     def update_lives(self):
         self.read_lives_sign()
-        self.show_text('16', 27, (1000, 8), (255, 255, 255), 'cinnamon-cake')
+        self.show_text(str(self.game.lives), 27, (1002, 8), (255, 255, 255), 'cinnamon-cake')
 
     def update_wave(self):
         self.read_wave_sign()
-        self.show_text('1', 27, (1000, 32), (255, 255, 255), 'cinnamon-cake')
+        self.show_text(str(self.game.waves), 27, (1002, 32), (255, 255, 255), 'cinnamon-cake')
 
     def update_gold(self):
         self.read_gold_sign()
-        self.show_text('100', 27, (1000, 71), (255, 255, 255), 'cinnamon-cake')
+        self.show_text(str(self.game.gold), 27, (1002, 71), (255, 255, 255), 'cinnamon-cake')
+
+    def update_texts(self):
+        self.update_gold()
+        self.update_wave()
+        self.update_lives()
 
     def show_help(self):
         pass
 
     def hide_help(self):
         pass
+
+    def move_monsters(self):
+        self.set_background()
+        self.wave.update_positions()
+        pygame.display.flip()
+
+    def check_if_game_over(self):
+        return self.game.lives <= 0
 
     def start(self):
         while self.menu_state:
@@ -76,5 +106,14 @@ class MainWindow:
                     if event.button == 1:
                         if self.play_button.button.collidepoint(pygame.mouse.get_pos()):
                             self.play_button.on_click()
+                            self.pause_pressed = not self.pause_pressed
 
+            if not self.pause_pressed:
+                self.move_monsters()
 
+            self.create_wave_if_neccesary()
+
+            if self.check_if_game_over():
+                self.menu_state = False
+                if HelloMenu.HelloMenu('game_over.png').start() is not None:
+                    MainWindow().start()

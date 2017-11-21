@@ -3,19 +3,19 @@ from ..back import Button
 
 
 class HelloMenu:
-    def __init__(self):
+    def __init__(self, name):
         self.screen = pygame.display.set_mode((800, 600))
         self.start_button = Button.Button('start', 'start.png', (320, 400, 173, 80), (173, 80), self.screen)
         self.exit_button = Button.Button('exit', 'exit.png', (320, 500, 173, 80), (173, 80), self.screen)
         self.menu_state = True
 
-        self.set_layout()
+        self.set_layout(name)
 
-    def set_layout(self):
+    def set_layout(self, name):
         menu_background = pygame.image.load('source\\images\\hello_menu_background.jpg')
         self.screen.blit(menu_background, (0, 0))
 
-        tittle = pygame.image.load('source\\images\\tittle.png')
+        tittle = pygame.image.load('source\\images\\' + name)
         tittle = pygame.transform.scale(tittle, (699, 540))
         self.screen.blit(tittle, (50, -120))
 
