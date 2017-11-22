@@ -7,7 +7,7 @@ class Wave:
 
     def fill_monsters(self, monster):
         for i in range(1, 11):
-            self.monsters.append(monster(132, -30 * i))
+            self.monsters.append(monster(138, -30 * i))
 
     def update_wave(self):
         temp_list = []
@@ -104,4 +104,5 @@ class Wave:
                 self.game.decrease_lives()
                 self.monsters.remove(m)
 
+            m.update_coordinates(m.x, m.y)
             self.screen.blit(m.image, (m.x, m.y))

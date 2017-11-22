@@ -1,1 +1,1 @@
-__all__ = ['HelloMenu', 'MainWindow']
+__all__ = ['HelloMenu', 'MainWindow', 'TowerIcons']
