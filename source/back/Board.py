@@ -22,17 +22,16 @@ class Board:
 
         self.free_places = self.places
 
-    def take_place(self, pos):
+    def take_place(self, pos, class_name):
         for p in self.free_places:
-            if (p.left, p.top) == pos:
+            if p.collidepoint(pos):
                 self.free_places.remove(p)
-                self.full_places.append(p)
+                self.full_places.append(class_name(p.left, p.top))
                 return
 
     def check_if_place_free(self, pos):
         for p in self.free_places:
-            if (p.left, p.top) == pos:
+            if p.collidepoint(pos):
                 return True
 
         return False
-    

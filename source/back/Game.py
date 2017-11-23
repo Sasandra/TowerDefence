@@ -11,3 +11,9 @@ class Game:
 
     def increase_gold(self, amount):
         self.gold += amount
+
+    def decrease_gold(self, amount):
+        self.gold -= amount
+
+    def check_gold(self, amount):
+        return self.gold >= amount

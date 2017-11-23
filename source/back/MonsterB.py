@@ -3,8 +3,8 @@ from ..back import Monster
 
 class MonsterBlue(Monster.Monster):
     def __init__(self, x, y):
-        self.start_health = 15
-        super(MonsterBlue, self).__init__(3, self.start_health, 15, 'monster_blue.png', x, y)
+        self.start_health = 140
+        super(MonsterBlue, self).__init__(5, self.start_health, 20, 'monster_blue.png', x, y)
 
     def increase_health(self):
         self.start_health += 3

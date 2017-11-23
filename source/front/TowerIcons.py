@@ -23,6 +23,12 @@ class TowerIcon:
     def check_if_collidepoint(self, pos):
         return self.coordinates.collidepoint(pos)
 
+    def return_class_name(self, pos):
+        if self.coordinates.collidepoint(pos):
+            return self.class_name
+        else:
+            return None
+
 
 class RedTowerIcon(TowerIcon):
     def __init__(self, screen):
@@ -33,6 +39,9 @@ class RedTowerIcon(TowerIcon):
 
     def check_if_collidepoint(self, pos):
         return super(RedTowerIcon, self).check_if_collidepoint(pos)
+
+    def return_class_name(self, pos):
+        return super(RedTowerIcon, self).return_class_name(pos)
 
 
 class GreenTowerIcon(TowerIcon):
@@ -45,6 +54,9 @@ class GreenTowerIcon(TowerIcon):
     def check_if_collidepoint(self, pos):
         return super(GreenTowerIcon, self).check_if_collidepoint(pos)
 
+    def return_class_name(self, pos):
+        return super(GreenTowerIcon, self).return_class_name(pos)
+
 
 class BlueTowerIcon(TowerIcon):
     def __init__(self, screen):
@@ -55,3 +67,6 @@ class BlueTowerIcon(TowerIcon):
 
     def check_if_collidepoint(self, pos):
         return super(BlueTowerIcon, self).check_if_collidepoint(pos)
+
+    def return_class_name(self, pos):
+        return super(BlueTowerIcon, self).return_class_name(pos)

@@ -3,7 +3,7 @@ from ..back import Tower
 
 class TowerBlue(Tower.Tower):
     def __init__(self, x, y):
-        super(TowerBlue, self).__init__(20, 10, 20, 'tower_blue.png', x, y)
+        super(TowerBlue, self).__init__(20, 100, 100, 'tower_blue.png', x, y, 200)
 
     def check_level(self):
         return super(TowerBlue, self).check_level()

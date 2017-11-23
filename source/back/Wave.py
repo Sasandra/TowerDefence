@@ -100,7 +100,7 @@ class Wave:
                     m.prev_direction = 'right'
                     m.direction = 'down'
 
-            if m.y > 625:
+            if m.y > 626:
                 self.game.decrease_lives()
                 self.monsters.remove(m)
 
