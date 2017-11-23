@@ -38,7 +38,7 @@ class MainWindow:
 
     def create_wave_if_neccesary(self):
         if self.wave.check_if_wave_end():
-            self.wave = Wave.Wave(next(self.monster_cycle), self.game, self.screen)
+            self.wave.fill_monsters(next(self.monster_cycle))
             self.game.waves += 1
             self.set_stats_note()
 
@@ -224,13 +224,14 @@ class MainWindow:
         monsters_to_his = self.calculate_distance_for_all_towers()
         for m in monsters_to_his:
             m[0].decrease_health(m[1])
+            m[0].change_image()
 
             if m[0].check_health():
-                print(m[0])
                 self.monster_killed(m[0])
 
     def monster_killed(self, monster):
-        self.wave.monsters.remove(monster)
+        if monster in self.wave.monsters:
+            self.wave.monsters.remove(monster)
         self.game.increase_gold(monster.prize)
         self.set_stats_note()
         pygame.display.flip()
@@ -248,6 +249,10 @@ class MainWindow:
                 blue.append(t)
 
         return red, green, blue
+
+    def draw_monsters_after_place_tower(self):
+        for m in self.wave.monsters:
+            self.screen.blit(m.image, (m.x, m.y))
 
     def start(self):
         while self.menu_state:
@@ -276,6 +281,7 @@ class MainWindow:
                                     self.set_stats_note()
                                     self.reset_memory()
                                     self.set_background()
+                                    self.draw_monsters_after_place_tower()
                                     pygame.display.flip()
 
                             else:
@@ -288,9 +294,9 @@ class MainWindow:
                 self.move_monsters()
                 self.hit_monsters()
 
-                if len(self.wave.monsters) != 10:
-                    self.set_stats_note()
-                    pygame.display.flip()
+                # if len(self.wave.monsters) != 10:
+                #     self.set_stats_note()
+                #     pygame.display.flip()
             else:
                 self.draw_rect_for_towers()
 

@@ -1,13 +1,27 @@
 class Wave:
     def __init__(self, monster, game_, screen_):
         self.monsters = []
-        self.fill_monsters(monster)
         self.game = game_
         self.screen = screen_
+        self.level_up_counter = -1
+        self.wave_counter = 0
+        self.fill_monsters(monster)
 
     def fill_monsters(self, monster):
+        self.wave_counter += 1
         for i in range(1, 11):
             self.monsters.append(monster(138, -30 * i))
+
+        self.level_up_monsters()
+
+    def level_up_monsters(self):
+        if self.wave_counter % 3 == 1:
+            self.level_up_counter += 1
+
+        for i in range(self.level_up_counter):
+            for m in self.monsters:
+                m.level_up()
+                print(m.health)
 
     def update_wave(self):
         temp_list = []
@@ -18,15 +32,6 @@ class Wave:
                 temp_list.append(m)
 
         self.monsters = temp_list
-
-    def hit_monster(self, pos, damage):
-        for m in self.monsters:
-            x_cond = pos[0] - 20 <= m.x <= pos[0] + 20
-            y_cond = pos[1] - 20 <= m.y <= pos[1] + 20
-            if x_cond and y_cond:
-                m.decrease_health(damage)
-
-        self.update_wave()
 
     def check_if_wave_end(self):
         if len(self.monsters) == 0:
