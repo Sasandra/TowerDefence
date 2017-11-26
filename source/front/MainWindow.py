@@ -27,13 +27,14 @@ class MainWindow:
         self.draw_towers_icons()
 
         self.clicked_tower = [False, None]
+        self.clicked_monster = [False, None]
         self.last_shoot_red = pygame.time.get_ticks()
         self.last_shoot_green = pygame.time.get_ticks()
         self.last_shoot_blue = pygame.time.get_ticks()
 
     def draw_rect_for_towers(self):
         for i in self.board.places:
-            pygame.draw.rect(self.screen, (255, 0, 0), i, 1)
+            pygame.draw.rect(self.screen, (163, 189, 0), i, 1)
             pygame.display.flip()
 
     def create_wave_if_neccesary(self):
@@ -46,9 +47,32 @@ class MainWindow:
         for i in self.tower_icons:
             i.draw_icon()
 
+    def check_if_show_monster_desc(self, pos):
+        for m in self.wave.monsters:
+            if m.check_if_collidepoint(pos):
+
+                self.clicked_tower = [False, None]
+                self.change_tower_clicked_value(None)
+
+                if m.clicked:
+                    self.set_description_note()
+                    m.clicked = False
+                    self.clicked_monster = [False, None]
+                    return False
+                else:
+                    m.clicked = True
+                    self.change_monster_clicked_value(m)
+                    return True
+
+        return False
+
     def check_if_show_tower_desc(self, pos):
         for t in self.tower_icons:
             if t.check_if_collidepoint(pos):
+
+                self.clicked_monster = [False, None]
+                self.change_monster_clicked_value(None)
+
                 if t.clicked:
                     self.set_description_note()
                     t.clicked = False
@@ -66,10 +90,20 @@ class MainWindow:
             if t is not tower:
                 t.clicked = False
 
+    def change_monster_clicked_value(self, monster):
+        for m in self.wave.monsters:
+            if m is not monster:
+                m.clicked = False
+
     def get_tower_description(self):
         for t in self.tower_icons:
             if t.clicked:
                 return t.class_name(t.coordinates.left, t.coordinates.top).return_description()
+
+    def get_monster_description_and_type(self):
+        for m in self.wave.monsters:
+            if m.clicked:
+                return m.return_description(), m
 
     def get_tower_icon_class(self, pos):
         for t in self.tower_icons:
@@ -95,7 +129,7 @@ class MainWindow:
 
         pygame.display.flip()
 
-    def display_tower_desc(self, desc):
+    def display_desc(self, desc):
         desc = desc.split('\n')
         for i in range(len(desc)):
             self.show_text(desc[i], 18, (980, 250 + i * 20), (0, 0, 0), 'cinnamon-cake')
@@ -133,8 +167,11 @@ class MainWindow:
     def reset_memory(self):
         self.set_description_note()
         self.clicked_tower = [False, None]
+        self.clicked_monster = [False, None]
         for t in self.tower_icons:
             t.clicked = False
+        for m in self.wave.monsters:
+            m.clicked = False
 
     def draw_towers_on_screen(self):
         for t in self.board.full_places:
@@ -223,6 +260,9 @@ class MainWindow:
     def hit_monsters(self):
         monsters_to_his = self.calculate_distance_for_all_towers()
         for m in monsters_to_his:
+            if m[0].clicked:
+                self.set_monster_desc()
+
             m[0].decrease_health(m[1])
             m[0].change_image()
 
@@ -230,10 +270,14 @@ class MainWindow:
                 self.monster_killed(m[0])
 
     def monster_killed(self, monster):
+        if monster.clicked:
+            self.clicked_monster = [False, None]
+            self.set_description_note()
         if monster in self.wave.monsters:
             self.wave.monsters.remove(monster)
         self.game.increase_gold(monster.prize)
         self.set_stats_note()
+
         pygame.display.flip()
 
     def split_tower_by_class(self):
@@ -254,6 +298,12 @@ class MainWindow:
         for m in self.wave.monsters:
             self.screen.blit(m.image, (m.x, m.y))
 
+    def set_monster_desc(self):
+        self.set_description_note()
+        description, monster = self.get_monster_description_and_type()
+        self.display_desc(description)
+        self.clicked_monster = [True, monster]
+
     def start(self):
         while self.menu_state:
             for event in pygame.event.get():
@@ -270,8 +320,11 @@ class MainWindow:
                         if self.check_if_show_tower_desc(mouse_pos):
                             self.set_description_note()
                             description = self.get_tower_description()
-                            self.display_tower_desc(description)
+                            self.display_desc(description)
                             self.clicked_tower = [True, self.get_tower_icon_class(mouse_pos)]
+
+                        if self.check_if_show_monster_desc(mouse_pos):
+                            self.set_monster_desc()
 
                         if self.condition_if_can_place_tower(mouse_pos):
                             if self.board.check_if_place_free(mouse_pos):
@@ -294,9 +347,6 @@ class MainWindow:
                 self.move_monsters()
                 self.hit_monsters()
 
-                # if len(self.wave.monsters) != 10:
-                #     self.set_stats_note()
-                #     pygame.display.flip()
             else:
                 self.draw_rect_for_towers()
 

@@ -20,3 +20,12 @@ class MonsterGreen(Monster.Monster):
 
     def level_up(self):
         super(MonsterGreen, self).level_up()
+
+    def check_if_collidepoint(self, pos):
+        return super(MonsterGreen, self).check_if_collidepoint(pos)
+
+    def return_description(self):
+        return super(MonsterGreen, self).return_description()
+
+    def check_if_clicked(self):
+        return super(MonsterGreen, self).check_if_clicked()

@@ -13,6 +13,7 @@ class Monster:
         self.direction = "down"
         self.coordinates = pygame.Rect(x_, y_, 26, 26)
         self.original_health = health_
+        self.clicked = False
 
     def decrease_health(self, amount):
         self.health -= amount
@@ -39,3 +40,17 @@ class Monster:
             self.image = pygame.image.load('source\\images\\' + self.image_name + '-3.png')
         elif 0 < self.health <= 0.20 * heal:
             self.image = pygame.image.load('source\\images\\' + self.image_name + '-4.png')
+
+    def check_if_collidepoint(self, pos):
+        return self.coordinates.collidepoint(pos)
+
+    def check_if_clicked(self):
+        return self.clicked
+
+    def return_description(self):
+        desc = ''
+        desc += "Speed:             " + str(self.speed) + '\n'
+        desc += "Health:            " + str(self.health) + '/' + str(self.original_health) + '\n'
+        desc += "Prize:                " + str(self.prize) + '\n'
+        # desc += "Level:       " + str(self.level) + '\n'
+        return desc
