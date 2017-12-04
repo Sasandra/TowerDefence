@@ -1,10 +1,12 @@
 from ..back import Monster
+from ..texts import constatnts
 
 
 class MonsterRed(Monster.Monster):
     def __init__(self, x, y):
-        self.start_health = 100
-        super(MonsterRed, self).__init__(2, self.start_health, 5, 'monster_red', x, y)
+        self.start_health = constatnts.RED_MONSTER_START_HEALTH
+        super(MonsterRed, self).__init__(constatnts.RED_MONSTER_SPEED, self.start_health, constatnts.RED_MONSTER_PRIZE,
+                                         constatnts.RED_MONSTER_IMG, x, y)
 
     def increase_health(self):
         self.start_health += 1

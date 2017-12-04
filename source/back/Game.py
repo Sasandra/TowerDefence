@@ -1,8 +1,10 @@
+from ..texts import constatnts
+
 class Game:
     def __init__(self):
         self.game_state = True
-        self.lives = 30
-        self.gold = 100
+        self.lives = constatnts.GAME_START_LIVES
+        self.gold = constatnts.GAME_START_GOLD
         self.waves = 1
         self.towers_icons = []
 

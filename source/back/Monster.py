@@ -10,7 +10,7 @@ class Monster:
         self.image = pygame.image.load('source\\images\\' + image_name + '-0.png')
         self.x = x_
         self.y = y_
-        self.direction = "down"
+        self.direction = "left"
         self.coordinates = pygame.Rect(x_, y_, 26, 26)
         self.original_health = health_
         self.clicked = False
@@ -23,7 +23,9 @@ class Monster:
 
     def level_up(self):
         self.health *= 1.2
+        self.health = int(self.health)
         self.original_health *= 1.2
+        self.original_health = int(self.original_health)
 
     def update_coordinates(self, x_, y_):
         self.coordinates = pygame.Rect(x_, y_, 26, 26)
@@ -49,8 +51,8 @@ class Monster:
 
     def return_description(self):
         desc = ''
-        desc += "Speed:             " + str(self.speed) + '\n'
-        desc += "Health:            " + str(self.health) + '/' + str(self.original_health) + '\n'
-        desc += "Prize:                " + str(self.prize) + '\n'
+        desc += "Speed:     " + str(self.speed) + '\n'
+        desc += "Health:    " + str(self.health) + '/' + str(self.original_health) + '\n'
+        desc += "Prize:     " + str(self.prize) + '\n'
         # desc += "Level:       " + str(self.level) + '\n'
         return desc

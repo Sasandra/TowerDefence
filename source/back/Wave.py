@@ -10,7 +10,7 @@ class Wave:
     def fill_monsters(self, monster):
         self.wave_counter += 1
         for i in range(1, 11):
-            self.monsters.append(monster(138, -30 * i))
+            self.monsters.append(monster(880 + 30*i, 430))
 
         self.level_up_monsters()
 
@@ -78,7 +78,7 @@ class Wave:
                     m.prev_direction = 'left'
                     m.direction = 'down'
 
-                elif 775 <= m.x <= 779:
+                elif 775 <= m.x <= 780:
                     m.prev_direction = 'left'
                     m.direction = 'down'
 
@@ -93,7 +93,7 @@ class Wave:
             elif m.direction == 'right':
                 m.x += m.speed
 
-                if 380 <= m.x <= 384:
+                if 380 <= m.x <= 385:
                     m.prev_direction = 'right'
                     m.direction = 'up'
 
@@ -105,9 +105,9 @@ class Wave:
                     m.prev_direction = 'right'
                     m.direction = 'down'
 
-            if m.y > 626:
-                self.game.decrease_lives()
-                self.monsters.remove(m)
+            #if m.y > 626:
+            #    self.game.decrease_lives()
+            #    self.monsters.remove(m)
 
             m.update_coordinates(m.x, m.y)
             self.screen.blit(m.image, (m.x, m.y))

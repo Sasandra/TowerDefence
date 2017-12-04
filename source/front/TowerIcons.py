@@ -1,12 +1,14 @@
 import pygame
 from ..back import TowerRed, TowerGreen, TowerBlue
+from ..texts import constatnts
 
 
 class TowerIcon:
     def __init__(self, screen, name, x, y, class_):
         self.image = pygame.image.load('source\\images\\' + name)
         self.screen = screen
-        self.coordinates = pygame.Rect((x, y, 24, 24))
+        self.coordinates = pygame.Rect((x, y, constatnts.TOWER_IMAGE_SIZE_X, constatnts.TOWER_IMAGE_SIZE_Y))
+
         self.class_name = class_
         self.clicked = False
 
@@ -32,7 +34,8 @@ class TowerIcon:
 
 class RedTowerIcon(TowerIcon):
     def __init__(self, screen):
-        super(RedTowerIcon, self).__init__(screen, 'tower_red.png', 1000, 155, TowerRed.TowerRed)
+        super(RedTowerIcon, self).__init__(screen, constatnts.RED_TOWER_IMAGE, constatnts.RED_TOWER_ICON_X,
+                                           constatnts.RED_TOWER_ICON_Y, TowerRed.TowerRed)
 
     def draw_icon(self):
         super(RedTowerIcon, self).draw_icon()
@@ -46,7 +49,8 @@ class RedTowerIcon(TowerIcon):
 
 class GreenTowerIcon(TowerIcon):
     def __init__(self, screen):
-        super(GreenTowerIcon, self).__init__(screen, 'tower_green.png', 1040, 155, TowerGreen.TowerGreen)
+        super(GreenTowerIcon, self).__init__(screen, constatnts.GREEN_TOWER_IMAGE, constatnts.GREEN_TOWER_ICON_X,
+                                             constatnts.GREEN_TOWER_ICON_Y, TowerGreen.TowerGreen)
 
     def draw_icon(self):
         super(GreenTowerIcon, self).draw_icon()
@@ -60,7 +64,8 @@ class GreenTowerIcon(TowerIcon):
 
 class BlueTowerIcon(TowerIcon):
     def __init__(self, screen):
-        super(BlueTowerIcon, self).__init__(screen, 'tower_blue.png', 1080, 155, TowerBlue.TowerBlue)
+        super(BlueTowerIcon, self).__init__(screen, constatnts.BLUE_TOWER_IMAGE, constatnts.BLUE_TOWER_ICON_X,
+                                            constatnts.BLUE_TOWER_ICON_Y, TowerBlue.TowerBlue)
 
     def draw_icon(self):
         super(BlueTowerIcon, self).draw_icon()

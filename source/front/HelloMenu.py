@@ -1,23 +1,29 @@
 import pygame
 from ..back import Button
+from ..texts import constatnts
 
 
 class HelloMenu:
     def __init__(self, name):
-        self.screen = pygame.display.set_mode((800, 600))
-        self.start_button = Button.Button('start', 'start.png', (320, 400, 173, 80), (173, 80), self.screen)
-        self.exit_button = Button.Button('exit', 'exit.png', (320, 500, 173, 80), (173, 80), self.screen)
+        self.screen = pygame.display.set_mode(constatnts.HELLO_MENU_SCREEN_SIZE)
+        self.start_button = Button.Button('start', constatnts.HELLO_MENU_START_BUTTON_IMAGE,
+                                          constatnts.HELLO_MENU_START_BUTTON_RECT,
+                                          constatnts.HELLO_MENU_START_BUTTON_SIZE, self.screen)
+
+        self.exit_button = Button.Button('exit', constatnts.HELLO_MENU_EXIT_BUTTON_IMAGE,
+                                         constatnts.HELLO_MENU_EXIT_BUTTON_RECT,
+                                         constatnts.HELLO_MENU_EXIT_BUTTON_SIZE, self.screen)
         self.menu_state = True
 
         self.set_layout(name)
 
     def set_layout(self, name):
-        menu_background = pygame.image.load('source\\images\\hello_menu_background.jpg')
-        self.screen.blit(menu_background, (0, 0))
+        menu_background = pygame.image.load('source\\images\\' + constatnts.HELLO_MENU_IMAGE)
+        self.screen.blit(menu_background, constatnts.HELLO_MENU_BACKGROUND_BLIT)
 
         tittle = pygame.image.load('source\\images\\' + name)
-        tittle = pygame.transform.scale(tittle, (699, 540))
-        self.screen.blit(tittle, (50, -120))
+        tittle = pygame.transform.scale(tittle, constatnts.HELLO_MENU_TITLE_TRANSFORM)
+        self.screen.blit(tittle, constatnts.HELLO_MENU_TITLE_BLIT)
 
         self.start_button.read_image()
         self.exit_button.read_image()

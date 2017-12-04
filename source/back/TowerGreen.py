@@ -1,9 +1,12 @@
 from ..back import Tower
+from ..texts import constatnts
 
 
 class TowerGreen(Tower.Tower):
     def __init__(self, x, y):
-        super(TowerGreen, self).__init__(10, 80, 25, 'tower_green.png', x, y, 400)
+        super(TowerGreen, self).__init__(constatnts.GREEN_TOWER_STRENGTH, constatnts.GREEN_TOWER_AREA,
+                                         constatnts.GREEN_TOWER_COST, constatnts.GREEN_TOWER_IMAGE, x, y,
+                                         constatnts.GREEN_TOWER_PERIOD)
 
     def check_level(self):
         return super(TowerGreen, self).check_level()
