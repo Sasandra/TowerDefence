@@ -3,10 +3,10 @@ from ..texts import constatnts
 
 
 class MonsterBlue(Monster.Monster):
-    def __init__(self, x, y):
+    def __init__(self, x, y, direction_):
         self.start_health = constatnts.BLUE_MONSTER_START_HEALTH
         super(MonsterBlue, self).__init__(constatnts.BLUE_MONSTER_SPEED, self.start_health,
-                                          constatnts.BLUE_MONSTER_PRIZE, constatnts.BLUE_MONSTER_IMG, x, y)
+                                          constatnts.BLUE_MONSTER_PRIZE, constatnts.BLUE_MONSTER_IMG, x, y, direction_)
 
     def increase_health(self):
         self.start_health += 3

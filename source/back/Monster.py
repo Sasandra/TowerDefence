@@ -2,7 +2,7 @@ import pygame
 
 
 class Monster:
-    def __init__(self, speed_, health_, prize_, image_name, x_, y_):
+    def __init__(self, speed_, health_, prize_, image_name, x_, y_, direction_):
         self.speed = speed_
         self.health = health_
         self.prize = prize_
@@ -10,7 +10,7 @@ class Monster:
         self.image = pygame.image.load('source\\images\\' + image_name + '-0.png')
         self.x = x_
         self.y = y_
-        self.direction = "left"
+        self.direction = direction_
         self.coordinates = pygame.Rect(x_, y_, 26, 26)
         self.original_health = health_
         self.clicked = False

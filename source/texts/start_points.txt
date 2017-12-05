@@ -1,0 +1,6 @@
+(down,left):(695,0)
+(down,right):(175,0)
+(right,down):(0,145)
+(up,left):(695,580)
+(up,right):(175,580)
+(right,up):(0,430)

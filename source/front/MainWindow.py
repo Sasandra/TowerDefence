@@ -96,6 +96,16 @@ class MainWindow:
             pygame.draw.rect(self.screen, constatnts.MAIN_WINDOW_PLACES_FOR_TOWERS_COLOR, i, 1)
             pygame.display.flip()
 
+        point_1 = pygame.Rect(180, 150, 10, 10)
+        point_2 = pygame.Rect(180, 440, 10, 10)
+        point_3 = pygame.Rect(705, 440, 10, 10)
+        point_4 = pygame.Rect(705, 150, 10, 10)
+        pygame.draw.rect(self.screen, (255, 0, 0), point_1, 1)
+        pygame.draw.rect(self.screen, (255, 0, 0), point_2, 1)
+        pygame.draw.rect(self.screen, (255, 0, 0), point_3, 1)
+        pygame.draw.rect(self.screen, (255, 0, 0), point_4, 1)
+        pygame.display.flip()
+
     def show_text(self, text, size, coor, color, style):
         pygame.font.init()
         myfont = pygame.font.SysFont(style, size)
@@ -371,7 +381,8 @@ class MainWindow:
             if not self.pause_pressed:
                 self.move_monsters()
                 self.hit_monsters()
-
+            else:
+                self.draw_rect_for_towers()
 
             self.create_wave_if_neccesary()
 
