@@ -1,9 +1,12 @@
-import pygame
+import pygame, os
 import numpy as np
 from itertools import cycle
 from ..back import Button, MonsterB, MonsterG, MonsterR, Game, Wave, Board
 from ..front import HelloMenu, TowerIcons
 from ..texts import constatnts
+
+
+os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 
 class MainWindow:
@@ -96,10 +99,10 @@ class MainWindow:
             pygame.draw.rect(self.screen, constatnts.MAIN_WINDOW_PLACES_FOR_TOWERS_COLOR, i, 1)
             pygame.display.flip()
 
-        point_1 = pygame.Rect(180, 150, 10, 10)
-        point_2 = pygame.Rect(180, 440, 10, 10)
-        point_3 = pygame.Rect(705, 440, 10, 10)
-        point_4 = pygame.Rect(705, 150, 10, 10)
+        point_1 = pygame.Rect(185, 440, 5, 5)
+        point_2 = pygame.Rect(185, 155, 5, 5)
+        point_3 = pygame.Rect(705, 440, 5, 5)
+        point_4 = pygame.Rect(705, 155, 5, 5)
         pygame.draw.rect(self.screen, (255, 0, 0), point_1, 1)
         pygame.draw.rect(self.screen, (255, 0, 0), point_2, 1)
         pygame.draw.rect(self.screen, (255, 0, 0), point_3, 1)

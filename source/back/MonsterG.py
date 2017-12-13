@@ -32,3 +32,6 @@ class MonsterGreen(Monster.Monster):
 
     def check_if_clicked(self):
         return super(MonsterGreen, self).check_if_clicked()
+
+    def change_direction_image(self):
+        super(MonsterGreen, self).change_direction_image()

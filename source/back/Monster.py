@@ -1,4 +1,5 @@
 import pygame
+from ..texts import constatnts
 
 
 class Monster:
@@ -7,13 +8,17 @@ class Monster:
         self.health = health_
         self.prize = prize_
         self.image_name = image_name
-        self.image = pygame.image.load('source\\images\\' + image_name + '-0.png')
+        self.image = pygame.image.load('source\\images\\' + image_name + '-0'
+                                                                         '.png')
         self.x = x_
         self.y = y_
         self.direction = direction_
         self.coordinates = pygame.Rect(x_, y_, 26, 26)
         self.original_health = health_
         self.clicked = False
+
+        self.change_direction_image()
+
 
     def decrease_health(self, amount):
         self.health -= amount
@@ -56,3 +61,15 @@ class Monster:
         desc += "Prize:     " + str(self.prize) + '\n'
         # desc += "Level:       " + str(self.level) + '\n'
         return desc
+
+    def change_direction_image(self):
+        pass
+        # if self.direction == 'left':
+        #     self.image = pygame.image.load('source\\images\\' + self.image_name + '_left.png')
+        # elif self.direction == 'right':
+        #     self.image = pygame.image.load('source\\images\\' + self.image_name + '_right.png')
+        # elif self.direction == 'down':
+        #     self.image = pygame.image.load('source\\images\\' + self.image_name + '_down.png')
+        # elif self.direction == 'up':
+        #     self.image = pygame.image.load('source\\images\\' + self.image_name + '_up.png')
+
