@@ -18,10 +18,10 @@ class HelloMenu:
         self.set_layout(name)
 
     def set_layout(self, name):
-        menu_background = pygame.image.load('source\\images\\' + constatnts.HELLO_MENU_IMAGE)
+        menu_background = pygame.image.load(constatnts.IMAGES_PATH + constatnts.HELLO_MENU_IMAGE)
         self.screen.blit(menu_background, constatnts.HELLO_MENU_BACKGROUND_BLIT)
 
-        tittle = pygame.image.load('source\\images\\' + name)
+        tittle = pygame.image.load(constatnts.IMAGES_PATH + name)
         tittle = pygame.transform.scale(tittle, constatnts.HELLO_MENU_TITLE_TRANSFORM)
         self.screen.blit(tittle, constatnts.HELLO_MENU_TITLE_BLIT)
 

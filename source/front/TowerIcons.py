@@ -5,7 +5,7 @@ from ..texts import constatnts
 
 class TowerIcon:
     def __init__(self, screen, name, x, y, class_):
-        self.image = pygame.image.load('source\\images\\' + name)
+        self.image = pygame.image.load(constatnts.IMAGES_PATH + name)
         self.screen = screen
         self.coordinates = pygame.Rect((x, y, constatnts.TOWER_IMAGE_SIZE_X, constatnts.TOWER_IMAGE_SIZE_Y))
 

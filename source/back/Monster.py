@@ -8,8 +8,7 @@ class Monster:
         self.health = health_
         self.prize = prize_
         self.image_name = image_name
-        self.image = pygame.image.load('source\\images\\' + image_name + '-0'
-                                                                         '.png')
+        self.image = pygame.image.load(constatnts.IMAGES_PATH + image_name + '-0.png')
         self.x = x_
         self.y = y_
         self.direction = direction_
@@ -18,7 +17,6 @@ class Monster:
         self.clicked = False
 
         self.change_direction_image()
-
 
     def decrease_health(self, amount):
         self.health -= amount
@@ -38,15 +36,15 @@ class Monster:
     def change_image(self):
         heal = self.original_health
         if 0.80 * heal < self.health <= heal:
-            self.image = pygame.image.load('source\\images\\' + self.image_name + '-0.png')
+            self.image = pygame.image.load(constatnts.IMAGES_PATH + self.image_name + '-0.png')
         elif 0.60 * heal < self.health <= 0.80 * heal:
-            self.image = pygame.image.load('source\\images\\' + self.image_name + '-1.png')
+            self.image = pygame.image.load(constatnts.IMAGES_PATH + self.image_name + '-1.png')
         elif 0.40 * heal < self.health <= 0.60 * heal:
-            self.image = pygame.image.load('source\\images\\' + self.image_name + '-2.png')
+            self.image = pygame.image.load(constatnts.IMAGES_PATH + self.image_name + '-2.png')
         elif 0.20 < self.health <= 0.40 * heal:
-            self.image = pygame.image.load('source\\images\\' + self.image_name + '-3.png')
+            self.image = pygame.image.load(constatnts.IMAGES_PATH + self.image_name + '-3.png')
         elif 0 < self.health <= 0.20 * heal:
-            self.image = pygame.image.load('source\\images\\' + self.image_name + '-4.png')
+            self.image = pygame.image.load(constatnts.IMAGES_PATH + self.image_name + '-4.png')
 
     def check_if_collidepoint(self, pos):
         return self.coordinates.collidepoint(pos)
@@ -65,11 +63,10 @@ class Monster:
     def change_direction_image(self):
         pass
         # if self.direction == 'left':
-        #     self.image = pygame.image.load('source\\images\\' + self.image_name + '_left.png')
+        #     self.image = pygame.image.load(constatnts.IMAGES_PATH + self.image_name + '_left.png')
         # elif self.direction == 'right':
-        #     self.image = pygame.image.load('source\\images\\' + self.image_name + '_right.png')
+        #     self.image = pygame.image.load(constatnts.IMAGES_PATH + self.image_name + '_right.png')
         # elif self.direction == 'down':
-        #     self.image = pygame.image.load('source\\images\\' + self.image_name + '_down.png')
+        #     self.image = pygame.image.load(constatnts.IMAGES_PATH + self.image_name + '_down.png')
         # elif self.direction == 'up':
-        #     self.image = pygame.image.load('source\\images\\' + self.image_name + '_up.png')
-
+        #     self.image = pygame.image.load(constatnts.IMAGES_PATH + self.image_name + '_up.png')

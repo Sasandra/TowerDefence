@@ -23,7 +23,7 @@ class Wave:
 
     def read_points(self):
         points = {}
-        with open('source\\texts\\start_points.txt', 'r') as r:
+        with open(constatnts.TEXTS_PATH + 'start_points.txt', 'r') as r:
             data = r.readlines()
             for line in data:
                 line_splited = line.rstrip().split(':')

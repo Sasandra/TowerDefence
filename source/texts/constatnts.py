@@ -1,3 +1,11 @@
+import os
+
+TEXTS_PATH = os.path.dirname(__file__) + '\\'
+IMAGES_PATH = TEXTS_PATH.replace('\\texts', '') + '\\images\\'
+
+print('texts: ', TEXTS_PATH)
+print('images: ', IMAGES_PATH)
+
 GAME_NAME = 'TowerDefence'
 
 MONSTER_IMAGE_SIZE_X = 26

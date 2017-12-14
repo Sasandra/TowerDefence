@@ -1,4 +1,4 @@
-import pygame, os
+import pygame, os, sys
 from source.front import HelloMenu
 from source.front import MainWindow
 from source.texts import constatnts
@@ -10,5 +10,6 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 if HelloMenu.HelloMenu(constatnts.HELLO_MENU_TITLE_IMAGE).start() is not None:
     MainWindow.MainWindow().start()
+
 else:
     pygame.quit()

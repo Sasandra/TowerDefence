@@ -1,4 +1,5 @@
 import pygame
+from ..texts import constatnts
 
 
 class Board:
@@ -10,7 +11,7 @@ class Board:
         self.read_places_from_file()
 
     def read_places_from_file(self):
-        with open('source\\texts\\towers_board_coordinates.txt', 'r') as r:
+        with open(constatnts.TEXTS_PATH + 'towers_board_coordinates.txt', 'r') as r:
             data = r.readlines()
             for line in data:
                 line = line.rstrip().split(',')

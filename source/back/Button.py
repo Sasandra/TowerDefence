@@ -1,4 +1,5 @@
 import pygame
+from ..texts import constatnts
 
 
 class Button:
@@ -30,7 +31,7 @@ class Button:
             return
 
     def read_image(self):
-        image = pygame.image.load('source\\images\\' + self.image_name)
+        image = pygame.image.load(constatnts.IMAGES_PATH + self.image_name)
         if self.scale is not None:
             image = pygame.transform.scale(image, self.scale)
         self.screen.blit(image, self.coordinates)

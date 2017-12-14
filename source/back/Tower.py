@@ -1,5 +1,5 @@
 import pygame
-
+from ..texts import constatnts
 
 class Tower:
     def __init__(self, strength_, area_, cost_, image_, x_, y_, time_):
@@ -7,7 +7,7 @@ class Tower:
         self.area_radius = area_
         self.level = 1
         self.cost = cost_
-        self.image = pygame.image.load('source\\images\\' + image_)
+        self.image = pygame.image.load(constatnts.IMAGES_PATH + image_)
         self.x = x_
         self.y = y_
         self.coordinates = pygame.Rect(x_, y_, 24, 24)

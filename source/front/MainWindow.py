@@ -41,7 +41,7 @@ class MainWindow:
         self.last_monster_update = pygame.time.get_ticks()
 
     def set_window_layout(self):
-        side_menu = pygame.image.load('source\\images\\' + constatnts.MAIN_WINDOW_SIDE_MENU_IMAGE)
+        side_menu = pygame.image.load(constatnts.IMAGES_PATH + constatnts.MAIN_WINDOW_SIDE_MENU_IMAGE)
         self.screen.blit(side_menu, constatnts.MAIN_WINDOW_SIDE_MENU_BLIT)
 
         self.play_button.read_image()
@@ -51,17 +51,17 @@ class MainWindow:
         pygame.display.flip()
 
     def set_original_background(self):
-        main_background = pygame.image.load('source\\images\\' + constatnts.MAIN_WINDOW_BACKGROUND_ORIGINAL_IMAGE)
+        main_background = pygame.image.load(constatnts.IMAGES_PATH + constatnts.MAIN_WINDOW_BACKGROUND_ORIGINAL_IMAGE)
         self.screen.blit(main_background, constatnts.MAIN_WINDOW_BACKGROUND_ORIGINAL_IMAGE_BLIT)
         pygame.display.flip()
 
     def set_background(self):
-        main_background = pygame.image.load('source\\images\\' + constatnts.MAIN_WINDOW_BACKGROUND_IMAGE)
+        main_background = pygame.image.load(constatnts.IMAGES_PATH + constatnts.MAIN_WINDOW_BACKGROUND_IMAGE)
         self.screen.blit(main_background, constatnts.MAIN_WINDOW_BACKGROUND_IMAGE_BLIT)
         pygame.display.flip()
 
     def set_road(self):
-        road = pygame.image.load('source\\images\\' + constatnts.MAIN_WINDOW_ROAD_IMAGE)
+        road = pygame.image.load(constatnts.IMAGES_PATH + constatnts.MAIN_WINDOW_ROAD_IMAGE)
         self.screen.blit(road, constatnts.MAIN_WINDOW_ROAD_BLIT)
         pygame.display.flip()
 
@@ -70,12 +70,12 @@ class MainWindow:
             i.draw_icon()
 
     def set_description_note(self):
-        img = pygame.image.load('source\\images\\' + constatnts.MAIN_MENU_DESCRIPTION_NOTE_IMAGE)
+        img = pygame.image.load(constatnts.IMAGES_PATH + constatnts.MAIN_MENU_DESCRIPTION_NOTE_IMAGE)
         self.screen.blit(img, constatnts.MAIN_MENU_DESCRIPTION_NOTE_IMAGE_BLIT)
         pygame.display.flip()
 
     def set_stats_note(self):
-        img = pygame.image.load('source\\images\\' + constatnts.MAIN_MENU_STATS_NOTE_IMAGE)
+        img = pygame.image.load(constatnts.IMAGES_PATH + constatnts.MAIN_MENU_STATS_NOTE_IMAGE)
         self.screen.blit(img, constatnts.MAIN_MENU_STATS_NOTE_IMAGE_BLIT)
 
         self.show_text('Lives:  ' + str(self.game.lives), constatnts.MAIN_WINDOW_STATS_FONT_SIZE,
