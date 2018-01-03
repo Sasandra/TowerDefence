@@ -5,7 +5,6 @@ from ..back import Button, MonsterB, MonsterG, MonsterR, Game, Wave, Board
 from ..front import HelloMenu, TowerIcons
 from ..texts import constatnts
 
-
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 
@@ -99,14 +98,6 @@ class MainWindow:
             pygame.draw.rect(self.screen, constatnts.MAIN_WINDOW_PLACES_FOR_TOWERS_COLOR, i, 1)
             pygame.display.flip()
 
-        point_1 = pygame.Rect(185, 440, 5, 5)
-        point_2 = pygame.Rect(185, 155, 5, 5)
-        point_3 = pygame.Rect(705, 440, 5, 5)
-        point_4 = pygame.Rect(705, 155, 5, 5)
-        pygame.draw.rect(self.screen, (255, 0, 0), point_1, 1)
-        pygame.draw.rect(self.screen, (255, 0, 0), point_2, 1)
-        pygame.draw.rect(self.screen, (255, 0, 0), point_3, 1)
-        pygame.draw.rect(self.screen, (255, 0, 0), point_4, 1)
         pygame.display.flip()
 
     def show_text(self, text, size, coor, color, style):
@@ -239,7 +230,7 @@ class MainWindow:
         now = pygame.time.get_ticks()
 
         if now - self.last_monster_update >= constatnts.MAIN_WINDOW_REFRESH_PERIOD:
-            self.set_road()
+            # self.set_road()
             self.wave.update_positions()
             pygame.display.flip()
             self.last_monster_update = now
@@ -273,6 +264,7 @@ class MainWindow:
         for m in self.wave.monsters:
             if m.y > 0:
                 dist = self.calculate_distance_between_tower_and_monster(tower, m)
+                dist = self.calculate_distance_between_tower_and_monster(tower, m)
                 if dist <= tower.area_radius:
                     distances.append(dist)
                     if dist == min(distances):
@@ -302,17 +294,23 @@ class MainWindow:
                 self.set_monster_desc()
 
             m[0].decrease_health(m[1])
+            m[0].change_health_level()
             m[0].change_image()
 
             if m[0].check_health():
                 self.monster_killed(m[0])
+                self.wave.update_positions()
 
     def monster_killed(self, monster):
         if monster.clicked:
             self.clicked_monster = [False, None]
             self.set_description_note()
         if monster in self.wave.monsters:
+            print(monster.x, monster.y)
+            image = pygame.image.load(constatnts.IMAGES_PATH + 'empty.png')
+            self.screen.blit(image, (monster.x, monster.y))
             self.wave.monsters.remove(monster)
+
         self.game.increase_gold(monster.prize)
         self.set_stats_note()
 
@@ -372,6 +370,7 @@ class MainWindow:
                                     self.set_stats_note()
                                     self.reset_memory()
                                     self.set_background()
+                                    self.set_road()
                                     self.draw_towers_on_screen()
                                     pygame.display.flip()
 
@@ -381,11 +380,22 @@ class MainWindow:
                     elif event.button == 3:
                         self.reset_memory()
 
+                        if not self.board.check_if_place_free(mouse_pos):
+                            cost = self.board.take_tower_cost(mouse_pos)
+                            print('cost', cost)
+                            if cost != 0:
+                                self.game.increase_gold(cost)
+                                self.set_stats_note()
+                                self.board.free_place(mouse_pos)
+                                self.set_background()
+                                self.set_road()
+                                self.draw_towers_on_screen()
+
             if not self.pause_pressed:
                 self.move_monsters()
                 self.hit_monsters()
-            else:
-                self.draw_rect_for_towers()
+            # else:
+            #    self.draw_rect_for_towers()
 
             self.create_wave_if_neccesary()
 

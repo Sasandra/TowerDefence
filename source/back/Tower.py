@@ -1,6 +1,7 @@
 import pygame
 from ..texts import constatnts
 
+
 class Tower:
     def __init__(self, strength_, area_, cost_, image_, x_, y_, time_):
         self.strength = strength_
@@ -10,7 +11,7 @@ class Tower:
         self.image = pygame.image.load(constatnts.IMAGES_PATH + image_)
         self.x = x_
         self.y = y_
-        self.coordinates = pygame.Rect(x_, y_, 24, 24)
+        self.coordinates = pygame.Rect(x_, y_, 26, 37)
         self.time_period = time_
 
     def check_level(self):
@@ -29,6 +30,6 @@ class Tower:
         desc += "Strength:          " + str(self.strength) + '\n'
         desc += "Area radius:       " + str(self.area_radius) + '\n'
         desc += "Cost:                " + str(self.cost) + '\n'
-        desc += "Time period:       " + str(self.time_period/1000) + 's\n'
+        desc += "Time period:       " + str(self.time_period / 1000) + 's\n'
         # desc += "Level:       " + str(self.level) + '\n'
         return desc

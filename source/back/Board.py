@@ -1,4 +1,5 @@
 import pygame
+import copy
 from ..texts import constatnts
 
 
@@ -36,3 +37,20 @@ class Board:
                 return True
 
         return False
+
+    def take_tower_cost(self, pos):
+        for p in self.full_places:
+            if p.coordinates.collidepoint(pos):
+                class_name = type(p)
+                temp = class_name(0, 0)
+                return int(0.8 * temp.cost)
+
+        return 0
+
+    def free_place(self, pos):
+        for p in self.full_places:
+            if p.coordinates.collidepoint(pos):
+                temp = copy.deepcopy(p.coordinates)
+                print(type(temp))
+                self.full_places.remove(p)
+                self.free_places.append(temp)

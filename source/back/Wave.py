@@ -19,9 +19,18 @@ class Wave:
         self.wave_counter = 0
         self.road = ["empty"]
         self.point = None
+        self.cross_points = []
         self.fill_monsters(monster)
+        self.read_cross_points()
 
-    def read_points(self):
+    def read_cross_points(self):
+        with open(constatnts.TEXTS_PATH + 'cross_points.txt', 'r') as r:
+            data = r.readlines()
+            for line in data:
+                line_splited = line.rstrip().split(',')
+                self.cross_points.append(line_splited)
+
+    def read_start_points(self):
         points = {}
         with open(constatnts.TEXTS_PATH + 'start_points.txt', 'r') as r:
             data = r.readlines()
@@ -37,7 +46,7 @@ class Wave:
         return points
 
     def random_point(self):
-        points = self.read_points()
+        points = self.read_start_points()
         key = random.choice(list(points))
         self.point = {key: points[key]}
 
@@ -50,12 +59,10 @@ class Wave:
         roads.append([point[1], point[0], opposite[point[1]], opposite[point[1]]])
         roads.append([point[1], point[0], opposite[point[1]], point[0]])
 
+        print(point)
+
         for i in roads:
-            if i[-1] != 'right':
-                temp_roads.append(i)
-            elif point[0] == 'down' and i[0] != 'right':
-                temp_roads.append(i)
-            elif point[0] == 'down' and i[1] != 'right':
+            if i[-1].rstrip() != 'right':
                 temp_roads.append(i)
 
         return temp_roads
@@ -69,21 +76,24 @@ class Wave:
         self.random_point()
         self.random_road()
 
+        self.first_monster_cross = 0
+        self.last_monster_cross = 0
+
         point_x = list(self.point.values())[0][0]
         point_y = list(self.point.values())[0][1]
         point_direction = list(self.point.keys())[0][0]
 
         if point_direction == 'down':
             for i in range(1, constatnts.WAVE_LENGTH + 1):
-                self.monsters.append(monster(point_x, point_y - 30 * i, point_direction))
+                self.monsters.append(monster(point_x, point_y - 45 * i, point_direction))
 
         elif point_direction == 'up':
             for i in range(1, constatnts.WAVE_LENGTH + 1):
-                self.monsters.append(monster(point_x, point_y + 30 * i, point_direction))
+                self.monsters.append(monster(point_x, point_y + 45 * i, point_direction))
 
         elif point_direction == 'right':
             for i in range(1, constatnts.WAVE_LENGTH + 1):
-                self.monsters.append(monster(point_x - 30 * i, point_y, point_direction))
+                self.monsters.append(monster(point_x - 45 * i, point_y, point_direction))
 
         self.level_up_monsters()
 
@@ -133,15 +143,12 @@ class Wave:
 
         return (length - 1) == index
 
+    def check_if_first_monster(self, monster):
+        index = self.monsters.index(monster)
+        return 0 == index
+
     def update_positions(self):
-
-        point_1 = pygame.Rect(185, 440, 5, 5)
-        point_2 = pygame.Rect(185, 155, 5, 5)
-        point_3 = pygame.Rect(705, 440, 5, 5)
-        point_4 = pygame.Rect(705, 155, 5, 5)
-
         last_monster_collision = False
-        print(self.road)
 
         for m in self.monsters:
             if m.direction == 'down':
@@ -157,79 +164,26 @@ class Wave:
                 m.x += m.speed
 
             m.update_coordinates(m.x, m.y)
-            print(m.coordinates.center)
             center_x = m.coordinates.center[0]
             center_y = m.coordinates.center[1]
 
-            # if 173 < m.x < 178 and 433 < m.y < 438:
-            #     m.direction = self.road[0]
-            #
-            #     if self.check_if_last_monster(m):
-            #         print(len(self.monsters))
-            #         print(self.monsters.index(m))
-            #         last_monster_collision = True
-            #
-            # elif 173 < m.x < 178 and 142 < m.y < 147:
-            #     m.direction = self.road[0]
-            #
-            #     if self.check_if_last_monster(m):
-            #         print(len(self.monsters))
-            #         print(self.monsters.index(m))
-            #         last_monster_collision = True
-            #
-            # elif 695 < m.x < 698 and 432 < m.y < 436:
-            #     m.direction = self.road[0]
-            #
-            #     if self.check_if_last_monster(m):
-            #         print(len(self.monsters))
-            #         print(self.monsters.index(m))
-            #         last_monster_collision = True
-            #
-            # elif 695 < m.x < 698 and 140 < m.y < 144:
-            #     m.direction = self.road[0]
-            #
-            #     if self.check_if_last_monster(m):
-            #         print(len(self.monsters))
-            #         print(self.monsters.index(m))
-            #         last_monster_collision = True
+            for i in self.cross_points:
+                if int(i[0]) < center_x < int(i[1]) and int(i[2]) < center_y < int(i[3]):
 
-            if 186 < center_x < 189 and 156 < center_y < 159:
-                m.direction = self.road[0]
+                    m.cross_amount += 1
+                    m.direction = self.road[0]
 
-                if self.check_if_last_monster(m):
-                    print(len(self.monsters))
-                    print(self.monsters.index(m))
-                    last_monster_collision = True
+                    if m.cross_amount - self.monsters[-1].cross_amount > 1:
+                        m.direction = self.road[1]
 
-            elif 707 < center_x < 710 and 156 < center_y < 159:
-                m.direction = self.road[0]
+                    if self.check_if_last_monster(m):
+                        last_monster_collision = True
+                        self.last_monster_cross += 1
 
-                if self.check_if_last_monster(m):
-                    print(len(self.monsters))
-                    print(self.monsters.index(m))
-                    last_monster_collision = True
-
-            elif 186 < center_x < 190 and 441 < center_y < 444:
-                m.direction = self.road[0]
-
-                if self.check_if_last_monster(m):
-                    print(len(self.monsters))
-                    print(self.monsters.index(m))
-                    last_monster_collision = True
-
-            elif 707 < center_x < 710 and 441 < center_y < 444:
-                m.direction = self.road[0]
-
-                if self.check_if_last_monster(m):
-                    print(len(self.monsters))
-                    print(self.monsters.index(m))
-                    last_monster_collision = True
-
-            m.change_direction_image()
+            m.change_image()
             self.screen.blit(m.image, (m.x, m.y))
 
             if self.check_if_monster_out_of_board(m):
-                print('dead!')
                 self.monsters.remove(m)
                 self.game.decrease_lives()
 

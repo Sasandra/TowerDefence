@@ -17,8 +17,8 @@ class MonsterRed(Monster.Monster):
     def check_health(self):
         return super(MonsterRed, self).check_health()
 
-    def change_image(self):
-        super(MonsterRed, self).change_image()
+    def change_health_level(self):
+        super(MonsterRed, self).change_health_level()
 
     def level_up(self):
         super(MonsterRed, self).level_up()
@@ -32,5 +32,5 @@ class MonsterRed(Monster.Monster):
     def check_if_clicked(self):
         return super(MonsterRed, self).check_if_clicked()
 
-    def change_direction_image(self):
-        super(MonsterRed, self).change_direction_image()
+    def change_image(self):
+        super(MonsterRed, self).change_image()
