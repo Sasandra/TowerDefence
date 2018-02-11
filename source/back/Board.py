@@ -51,6 +51,5 @@ class Board:
         for p in self.full_places:
             if p.coordinates.collidepoint(pos):
                 temp = copy.deepcopy(p.coordinates)
-                print(type(temp))
                 self.full_places.remove(p)
                 self.free_places.append(temp)

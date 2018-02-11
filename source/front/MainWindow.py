@@ -306,7 +306,6 @@ class MainWindow:
             self.clicked_monster = [False, None]
             self.set_description_note()
         if monster in self.wave.monsters:
-            print(monster.x, monster.y)
             image = pygame.image.load(constatnts.IMAGES_PATH + 'empty.png')
             self.screen.blit(image, (monster.x, monster.y))
             self.wave.monsters.remove(monster)
@@ -382,7 +381,6 @@ class MainWindow:
 
                         if not self.board.check_if_place_free(mouse_pos):
                             cost = self.board.take_tower_cost(mouse_pos)
-                            print('cost', cost)
                             if cost != 0:
                                 self.game.increase_gold(cost)
                                 self.set_stats_note()

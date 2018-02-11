@@ -59,8 +59,6 @@ class Wave:
         roads.append([point[1], point[0], opposite[point[1]], opposite[point[1]]])
         roads.append([point[1], point[0], opposite[point[1]], point[0]])
 
-        print(point)
-
         for i in roads:
             if i[-1].rstrip() != 'right':
                 temp_roads.append(i)
